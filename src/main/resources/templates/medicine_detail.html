@@ -1,0 +1,313 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>THP</title>
+    <style>
+        #edit-medicine-name-button:hover {
+            background-color:#d6b856 !important;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <br/>
+    <div class="row"
+         style="box-shadow:0px 0px 4px 0px;background-image: linear-gradient(to right, #edd0a8 , #f5bfcd, #f5f5c6, #b6f1fc);;padding:2px;">
+        <a class="btn btn-primary col-sm-1 col-xs-1 col-md-1" th:href="@{|${referer}|}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reply-fill"
+                 viewBox="0 0 16 16">
+                <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
+            </svg>
+        </a>
+    </div>
+    <br/>
+    <br/>
+    <h3 style="color:#105e69" class="text-center"><b>MEDICINE DETAIL</b></h3>
+    <br/>
+    <form id="medicineOrderForm" style="box-shadow:0px 0px 2px 0px;padding:10px;border-radius:3px;" class="row g-3" action="#"
+          th:action="@{/mvc/medicine/sell}" method="post" th:object="${medicineOrder}">
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <label for="name" class="form-label"><b>NAME</b></label>
+            <!--<input type="text" style="background-color:#95edea" disabled class="form-control" id="name"
+                   th:field="${medicine.displayName}"/>-->
+            <div class="input-group mb-3">
+                <input id="name" type="text" style="background-color:#a6e7f7;border-top-right-radius:0px;border-bottom-right-radius:0px;font-weight:bolder" disabled class="form-control"
+                       aria-describedby="basic-addon2" th:field="${medicine.displayName}">
+                <div class="input-group-append">
+                    <button type="button" id="edit-medicine-name-button" class="btn btn-warning" data-bs-toggle="modal"
+                            style="border-top-left-radius:0px;border-bottom-left-radius:0px;"
+                            data-bs-target="#exampleModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                             class="bi bi-pen-fill" viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <label for="company" class="form-label"><b>COMPANY</b></label>
+            <input type="text" disabled class="form-control" id="company" th:field="${medicine.companyDisplayName}"/>
+        </div>
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <label for="price" class="form-label"><b>PRICE</b></label>
+            <input type="text" disabled class="form-control" id="price" th:field="${medicine.price}"/>
+        </div>
+        <!--<div class="col-md-6 col-xs-12 col-sm-12">
+            <label for="count" class="form-label">Count</label>
+            <input type="text" class="form-control" id="count" th:field="${medicine.count}"/>
+        </div>-->
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <label for="volume" class="form-label"><b>ML</b></label>
+            <input type="text" disabled class="form-control" id="volume" th:field="${medicine.volume}"/>
+        </div>
+
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <label for="purchaseDate" class="form-label"><b>LAST ADDED DATE</b></label>
+            <input type="text" disabled class="form-control" id="purchaseDate" th:field="${medicine.purchaseDate}"/>
+        </div>
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <p class="col-sm-6 col-xs-12 col-md-6" style="padding-top:8px;">TOTAL COUNT&nbsp;&nbsp;
+                    <span style="width:50px;height:40px;font-size:20px;" th:if="${medicine.totalMedicinePresent} < 15 and ${medicine.totalMedicinePresent} >= 5"
+                          class="badge bg-warning" th:text="${medicine.totalMedicinePresent}"/>
+                    <span style="width:50px;height:40px;font-size:20px;" th:if="${medicine.totalMedicinePresent} >= 15" class="badge bg-success"
+                          th:text="${medicine.totalMedicinePresent}"/>
+                    <span style="width:50px;height:40px;font-size:20px;" th:if="${medicine.totalMedicinePresent} < 5" class="badge bg-danger"
+                          th:text="${medicine.totalMedicinePresent}"/>
+                </p>
+                <div class="col-sm-6 col-xs-12 col-md-6" style="padding-top:8px;">
+                    <a class="btn btn-outline-dark" th:href="@{|update/${medicine.medicineId}|}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>&nbsp;&nbsp;ADD STOCK
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Hidden input to get the value of medicineId from Medicine object -->
+        <input id="00-1-id-src" type="hidden" th:value="${medicine.medicineId}"/>
+        <!-- Hidden input to set the medicineId on MedicineOrder object  -->
+        <input id="00-1-id-dest" type="hidden" th:field="*{medicineId}"/>
+
+        <input type="hidden" id="0001-1-cn-dest" th:field="*{customerName}" />
+        <input type="hidden" id="0001-1-ca-dest" th:field="*{customerAddress}" />
+        <input type="hidden" id="00011-1-dr" th:field="*{isDropRequest}" />
+
+        <table class="table table-bordered">
+            <tr class="table-primary">
+                <td><b>BOX NUMBER</b></td>
+                <td><b>MEDICINE COUNT</b></td>
+                <td><b>CELL COUNT</b></td>
+            </tr>
+            <tr class="box-stock-details" th:each="medicineBox : ${medicine.medicineBoxes}">
+                <td class="text-center">
+                    <input hidden th:field="*{boxes[__${medicineBoxStat.index}__].boxNumber}"/>
+                    <input disabled class="form-control" type="text" th:value="${#strings.toUpperCase(medicineBox.box.number)}"/>
+                </td>
+                <td class="text-center" th:text="${medicineBox.medicineCount}"></td>
+                <td><input type="number" th:field="*{boxes[__${medicineBoxStat.index}__].medicineCount}"
+                           class="form-control medicine_sell_input"/></td>
+            </tr>
+        </table>
+        <div class="row">
+            <div class="col-sm-4 col-xs-4 col-md-4"></div>
+            <div class="col-sm-3 col-xs-3 col-md-3">
+                <button style="align:right" id="submit_btn" th:disabled="${medicine.medicineBoxes.size() < 1}" class="btn btn-secondary"
+                        type="button" data-bs-toggle="modal" data-bs-target="#customerDetailsModal" onclick="return _0000_0000_0000()">SELL
+                </button>
+            </div>
+            <div class="col-sm-3 col-xs-3 col-md-3">
+                <button id="drop_btn" th:disabled="${medicine.medicineBoxes.size() < 1}" class="btn btn-secondary"
+                        type="button" data-bs-toggle="modal" data-bs-target="#customerDetailsModal" onclick="return _0000_1111_0000()">DELETE
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:replace="/common/footer :: footer"></div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form th:action="@{|name/change/${medicine.medicineId}|}" method="post">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title text-center" id="exampleModalLabel">CHANGE NAME</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="name-change-old-name" class="form-label"><b>CURRENT NAME</b></label>
+                    <input id="name-change-old-name" disabled class="form-control" type="text"
+                           th:field="${medicine.displayName}"/>
+                    <br/>
+                    <label for="name-change-new-name" class="form-label"><b>NEW NAME</b></label>
+                    <input id="name-change-new-name" class="form-control" type="text" name="medicineNewName"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="medicine-change-submit-button" type="submit" class="btn btn-primary">
+                        Save changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="customerDetailsModal" tabindex="-1" aria-labelledby="customerDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!--<form th:action="@{|name/change/${medicine.medicineId}|}" method="post">-->
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title text-center" id="customerDetailsModalLabel">CUSTOMER DETAILS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="customer-details-name-src" class="form-label"><b>NAME</b></label>
+                    <input id="customer-details-name-src" class="form-control" type="text" name="customerName"/>
+                    <br/>
+                    <label for="customer-details-address-src" class="form-label"><b>ADDRESS</b></label>
+                    <input id="customer-details-address-src" class="form-control" type="text" name="customerAddress"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="final-sell-submit-button" type="button" class="btn btn-primary" onclick="return _00_00_00_00_00()">
+                        SELL
+                    </button>
+                </div>
+            <!--</form>-->
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+    function _0000_0000_0000(){
+        document.getElementById('00011-1-dr').value = 'NODROP';
+        document.getElementById('00011-1-dr').value = false;
+        document.getElementById('customer-details-name-src').disabled = false;
+        document.getElementById('customer-details-address-src').disabled = false;
+        document.getElementById('final-sell-submit-button').innerHTML = 'SELL';
+        function_0_0_0_();
+    }
+    function _0000_1111_0000(){
+        document.getElementById('00011-1-dr').value = 'DROP';
+        document.getElementById('00011-1-dr').value = true;
+        document.getElementById('customer-details-name-src').disabled = true;
+        document.getElementById('customer-details-address-src').disabled = true;
+        document.getElementById('final-sell-submit-button').innerHTML = 'DELETE';
+        function_0_0_0_();
+    }
+    function _00_00_00_00_00(){
+        /*var var000 = document.getElementById('00011-1-dr').value;
+        if(var000 === 'DROP'){
+            document.getElementById('00011-1-dr').value = true;
+            document.getElementById('customer-details-name-src').disabled = true;
+            document.getElementById('customer-details-address-src').disabled = true;
+            document.getElementById('final-sell-submit-button').innerHTML = 'DELETE';
+        }else{
+            document.getElementById('00011-1-dr').value = false;
+            document.getElementById('customer-details-name-src').disabled = false;
+            document.getElementById('customer-details-address-src').disabled = false;
+            document.getElementById('final-sell-submit-button').innerHTML = 'SELL';
+        }*/
+        var var0 = document.getElementById('customer-details-name-src').value;
+        var var1 = document.getElementById('customer-details-address-src').value;
+        document.getElementById('0001-1-cn-dest').value = var0;
+        document.getElementById('0001-1-ca-dest').value = var1;
+        document.getElementById('medicineOrderForm').submit();
+        return true;
+    }
+    function function_0_0_0_() {
+        var var0 = confirm('Are you sure you want to sell?');
+        if(var0 == true){
+            return function__01__box_traverse();
+        }else {
+            return false;
+        }
+    }
+    function function__02__number__assignment(_element){
+        var __element = _element.children[0];
+        var __tElement1 = __element.children[0];
+        var __tElement2 = __element.children[1];
+        // Copy value from 2 to 1
+        __tElement1.value = __tElement2.value;
+    }
+    function function__01__box_traverse(){
+        var rootElement = document.getElementsByClassName('box-stock-details');
+        for(var __i=0 ; __i < rootElement.length ; __i++) {
+            function__02__number__assignment(rootElement[__i]);
+        }
+        function_01_01_medicineId();
+        return true;
+    }
+    function function_01_01_medicineId(){
+        var _00_1_id_src = document.getElementById('00-1-id-src');
+        var _00_1_id_dest = document.getElementById('00-1-id-dest');
+        _00_1_id_dest.value = _00_1_id_src.value;
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        function__0_0_1_1(true);
+        function___0___0__0(true);
+        var var0_1 = document.getElementsByClassName('medicine_sell_input');
+        for(var var1_0=0;var1_0<var0_1.length;var1_0++){
+            var0_1[var1_0].addEventListener('change', function(event){
+                function_s_b_0_0_1(event);
+            })
+        }
+        function0000_0_0_0_0_1().addEventListener('keyup', function(event){
+            function1_1_1_99_00(event);
+        });
+    });
+    function function_s_b_0_0_1(event){
+        var var0_0 = document.getElementsByClassName('medicine_sell_input');
+        var var1_1 = 0;
+        for(var var1=0;var1<var0_0.length;var1++) {
+            var var_1_1_0 = var0_0[var1].value;
+            if(var_1_1_0 == "" || var_1_1_0 == undefined) {
+                var_1_1_0 = 0;
+            }
+            var1_1 = var1_1+parseInt(var_1_1_0);
+        }
+        if(var1_1 > 0) {
+            function__0_0_1_1(false);
+        }else {
+            function__0_0_1_1(true)
+        }
+    }
+    function function__0_0_1_1(var0_0_0){
+        document.getElementById('submit_btn').disabled = var0_0_0;
+        document.getElementById('drop_btn').disabled = var0_0_0;
+    }
+    function function___0___0__0(var0){
+        function__000_00_0().disabled = var0;
+    }
+    function function__000_00_0() {
+        return document.getElementById('medicine-change-submit-button');
+    }
+    function function0000_0_0_0_0_1(){
+        return document.getElementById('name-change-new-name');
+    }
+    function function1_1_1_99_00(var0){
+        if(function0000_0_0_0_0_1().value == undefined || function0000_0_0_0_0_1().value == "" || function0000_0_0_0_0_1().value == null) {
+            function___0___0__0(true);
+        }else {
+            function___0___0__0(false);
+        }
+    }
+    function cc_00_00_000_1(){
+        var var0 = document.getElementById('00-1-id-src').value;
+        window.location = "name/change/" + var0;
+    }
+
+</script>
+</html>
